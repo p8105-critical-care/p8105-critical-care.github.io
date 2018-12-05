@@ -1,2 +1,2 @@
-# p8105-critical-care.github.io
-Final project website
+# website-example
+example for class

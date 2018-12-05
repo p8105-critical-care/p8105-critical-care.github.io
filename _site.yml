@@ -1,13 +1,30 @@
-name: "Yay internet!"
-output_dir: "."
+name: "P8105 Final Project"
+output_dir: '.'
 navbar:
-  title: "Home"
+  title: P8105 Data Science at Columbia U Mailman SPH
   right:
-    - text: "About"
-      href: about.html
-    - icon: fa-envelope fa-lg
-      href: mailto:<you@youremail.com>
-    - icon: fa-github fa-lg
-      href: http://github.com/<YOUR_GH_NAME>/
+  - text: Background
+    href: background.html
+  - text: Analysis
+    menu:
+    - text: Working with Postgres
+      href: database.html
+    - text: Logistic Regression
+      href: topic_building_blocks.html
+    - text: Conclusions
+      href: conclusions.html
+  - text: Resources
+    menu:
+    - text: MIMIC Code Repository
+      href: https://github.com/MIT-LCP/mimic-code
+    - text: MIMIC Critical Care Database
+      href: https://mimic.physionet.org/
+  - text: Shiny App
+    href: https://mimicroc.shinyapps.io/severity-scores-analysis/
+  - icon: fa-github
+    href: https://github.com/lauracosgrove/p8105_final-project
 output:
-  html_document
+  html_document:
+    theme: simplex
+    include:
+    css: 
