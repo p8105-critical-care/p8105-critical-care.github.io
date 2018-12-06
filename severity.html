@@ -9,9 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Laura Cosgrove" />
 
 
-<title>Background</title>
+<title>Logistic Regression</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -200,10 +201,7 @@ $(document).ready(function () {
       <a href="database.html">Working with Postgres</a>
     </li>
     <li>
-      <a href="topic_building_blocks.html">Logistic Regression</a>
-    </li>
-    <li>
-      <a href="conclusions.html">Conclusions</a>
+      <a href="severity.html">Logistic Regression</a>
     </li>
   </ul>
 </li>
@@ -240,21 +238,32 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Background</h1>
+<h1 class="title toc-ignore">Logistic Regression</h1>
+<h4 class="author"><em>Laura Cosgrove</em></h4>
+<h4 class="date"><em>12/5/2018</em></h4>
 
 </div>
 
 
-<hr />
-<div id="resources" class="section level3">
-<h3>Resources</h3>
-<p>This project could not have been completed without the MIT Lab for Computational Physiology’s <a href="https://github.com/MIT-LCP/mimic-code">MIMIC open code repository</a> and Pirracchio et al.’s <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4321691/">2014 research paper</a> on mortality prediction in the ICU. In this work, the authors describe development of SICULA, a super-learner algorithm trained on the MIMIC data. Our aim was to reproduce their benchmark analyses of the known severity scores for mortality prediction, which make use, primarily, of physiologic data from a patient’s first stay in the ICU.</p>
-<hr />
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>We used the MIT LCP to generate severity scores and detailed ICU data for the &gt;50,000 patients in this dataset from their chart events in the ICU. We also used AHRQ’s ICD code classification system to generate high-level classification of diagnosis for later manipulation in our interactive <a href="https://mimicroc.shinyapps.io/severity-scores-analysis">Shiny webapp</a>. We evaluated the different severity scores first through an intuitive visualization, and then through an AUROC analysis, making use of predictions imputed in the case of SAPSII by a published literature value and, for other scores, through a mainterm logicstic regression. An AUROC analysis maximizes the ratio of true positives to false positive through every possible “cutoff” value for a continuous-probability test; i.e., if an algorithem were to classify an outcome based on different levels of probability, the false positive rate and true positive rate would change. A algorithm with good discrimination will quickly maxi the true positive rate vs. false positive rate as your threshold for classification changes. We find this type of analysis applicable to the clinical use case; given that different clinicians, programs, or systems may assign different interpretations to the same severity, a useful algorithm will quickly be “better than chance” throughout its range. Our AUROC analysis resulted in SAPSII being the most predictive severity score.</p>
+<p>Following this, we revisited an earlier question of interest– do demographic factors affect outcomes–through two means: first, we investigated whether adding additional terms to the model improved the SAPSII prediction, through our earlier “intuitive” graph and an AUROC analysis. We found a marginal improvement in AUROC when adding an interaction term with admission type (emergency or elective), and a log-likelihood test found the additional terms added to be significant. However, our main conclusion was how quickly models are muddied in interpretability by adding additional terms, which was a useful exploration of the principle of parsimony. To close our project, we found that a less certain, but more visualization-rich would be a useful addition to this research question, and we created a <a href="https://mimicroc.shinyapps.io/severity-scores-analysis">Shiny dashboard</a> wherein users can explore the effect of different diagnoses (from the top 50 most common diagnostic categories), insurance types, and age on observed deaths and the ROC curves for the severity scores. (N.b.: this also serves as an exploration of how sample size affects evaluation of algorithms)</p>
 </div>
-<div id="software" class="section level3">
-<h3>Software</h3>
-<p>This project was completed primarily in R Studio. The R packages we used include <code>ggplot2</code>, <code>plotly</code>, <code>tidyverse</code>, and <code>RPostgreSQL</code>. We created the Shiny app using <code>flexdashboard</code>.</p>
-<p>We created the local Postgres database with Postgres version 10.5 installed through Homebrew for Mac.</p>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<div id="roc-curves-for-severity-scores" class="section level3">
+<h3>ROC curves for Severity Scores</h3>
+<p><img src="images/auc-1.png" /><!-- --></p>
+</div>
+<div id="probability-vs-proporition-for-severity-scores" class="section level3">
+<h3>Probability vs Proporition for Severity Scores</h3>
+<p><img src="images/plot%202-1.png" /><!-- --></p>
+</div>
+<div id="roc-curve-for-admission-type-addition" class="section level3">
+<h3>ROC curve for Admission Type Addition</h3>
+<p><img src="images/unnamed-chunk-18-1.png" /><!-- --></p>
+</div>
 </div>
 
 

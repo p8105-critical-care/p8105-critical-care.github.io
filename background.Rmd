@@ -2,8 +2,16 @@
 title: "Background"
 ---
 
+------
+
 ### Resources
 
 This project could not have been completed without the MIT Lab for Computational Physiology's [MIMIC open code repository](https://github.com/MIT-LCP/mimic-code) and Pirracchio et al.'s [2014 research paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4321691/) on mortality prediction in the ICU. In this work, the authors describe development of SICULA, a super-learner algorithm trained on the MIMIC data. Our aim was to reproduce their benchmark analyses of the known severity scores for mortality prediction, which make use, primarily, of physiologic data from a patient's first stay in the ICU.
 
-### R Packages
+------
+
+### Software
+
+This project was completed primarily in R Studio. The R packages we used include `ggplot2`, `plotly`, `tidyverse`, and `RPostgreSQL`. We created the Shiny app using `flexdashboard`.
+
+We created the local Postgres database with Postgres version 10.5 installed through Homebrew for Mac.

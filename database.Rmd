@@ -1,0 +1,68 @@
+---
+title: "Working with Postgres"
+output: html_document
+---
+
+The first step in accessing the MIMIC data is to undergo training on responsible use of human subjects data. Although the data is deidentified, its highly sensitive nature requires judgment and care in disclosure; for example, MIMIC data should not be published to github in raw form. For project management, an easy first step is to add `.csv` to a .gitignore file in project directories.
+
+Following access, downloading the data is straightforward to do either using command-line tools or through the browser interface. The full MIMIC dataset consists of 26 datasheets, linked across topics or data inputs by unique keys (usually subject_id, hadm_id, or icustay_id). The datasheets range in size from manageable to process in R (e.g. ~1 MB, admissions data) to impossible to use in R without running out of memory (e.g. 7.5 MB, procedure events data).
+
+To work with large data in an independent project, it's efficient to use SQL queries. As soon as we decided that we wanted to explore physiologic data, which were located in datasheets from ~5MB to 1 GB in size, it became clear that we needed to build a local database for which we could make use of the MIT open code repository's public SQL queries that create useful views into data we would need in order to fill our goal in reproducing the mortality prediction analysis. There are many great tutorials on how to build a local Postgres database, and I followed the one published by MIMIC. Following that, though, I had to troubleshoot how to integrate SQL in an R workflow. I'm going to go into some detail of how to use Postgres with RMarkdown in hopes that it will prove useful.
+
+### Using SQL in RMarkdown
+
+```{r setup, eval = FALSE}
+library(RPostgreSQL)
+library(tidyverse)
+```
+
+The below chunk loads your configuration settings.
+
+```{r dbconnect, eval = FALSE}
+# Load configuration settings
+dbdriver <- 'PostgreSQL'
+host  <- '127.0.0.1'
+port  <- '5432'
+user  <- 'postgres'
+password <- 'postgres'
+dbname <- 'mimic'
+schema <- 'mimiciii'
+# Connect to the database using the configuration settings
+con <- dbConnect(dbDriver(dbdriver), dbname = dbname, host = host, port = port, 
+                 user = user, password = password)
+# Set the default schema
+dbExecute(con, paste("SET search_path TO ", schema, sep=" "))
+```
+
+Set this database as the connection for all future sql chunks:
+
+```{r, eval= FALSE}
+knitr::opts_chunk$set(connection = "con")
+```
+
+The above chunk is useful if you use knitr to generate the query by including an SQL chunk in your R Markdown. Similar to building websites, it would be necessary to "knit" in order to execute the query. For this project, I decided instead to primarily use `read_file` in order to save SQL queries as a character object then using `dbGetQuery`.
+
+```{r, eval = FALSE}
+sample_view <- read_file("./database/sample.sql")
+
+#Generate materialized views
+dbGetQuery(con, sample_view)
+
+```
+
+The above chunk generates a "materialized view" in your Postgres database, meaning the data is sitting in your database in the right format (specified by your SQL file): you just need to grab it, by selecting all (*) from the name of your materialized view. It's easiest to generate that in a `tidyverse` workflow by saving a query as a character object, then saving the output of your query as a tibble:
+
+```{r view, eval=FALSE}
+#View sapsii_data
+sample_query <- "SELECT *
+              FROM sample i;"
+sample_data <- as.tibble(dbGetQuery(con, sample_query))
+```
+
+The final step is to write a .csv to share with your group members.
+
+```{r, eval = FALSE}
+write_csv(sample_data, path = "./database/sample.csv")
+```
+
+Examples of real code I used in the analysis can be seen in our [github](https://github.com/lauracosgrove/p8105_final-project) repository.
