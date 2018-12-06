@@ -8,7 +8,7 @@ title: "Mortality Prediction in the MIMIC Critical Care Database"
 
 Millions of data points are collected every second in hospitals and health systems across the U.S., providing a deep well of individual-level data about the course of a person's care. Historically, much of these data are stored in aging EHR and medical device lexicons and siloed on private servers; little of it is shared with the research community. The [MIMIC Critical Care Database](https://mimic.physionet.org/), developed in 2015 by the MIT Lab for Computational Physiology is a unique opportunity for researchers and data scientists to engage with this kind of patient data. Instructions about gaining access to MIMIC are [here](https://mimic.physionet.org/gettingstarted/access/), along with richer background information about the open research exchange.
 
-This project aims to visualize the predictive capability of five physiologic severity scores computed from first-day stays in the ICU, and to determine whether covariate demographic factors. More loosely, we hoped to explore our capability to reproduce analyses in an open research community and find new ways to understand the data through interactive visualization.
+This project aims to visualize the predictive capability of five physiologic severity scores computed from first-day stays in the ICU, and to determine whether covariate demographic factors affect mortality outcomes. More loosely, we hoped to explore our capability to reproduce analyses in an open research community and find new ways to understand the data through interactive visualization.
 
 ------
 
@@ -22,4 +22,4 @@ knitr::include_url("https://www.youtube.com/embed/gl1aHhXnN1k")
 
 ### Authors
 
-This project was authored by [Samantha Brown](https://github.com/slb2240), [Laura Cosgrove](http://lauracosgrove.com/), and [Francis Zhang](https://github.com/Franc1sFrank). 
+This project was authored by [Samantha Brown](https://github.com/slb2240), [Laura Cosgrove](http://lauracosgrove.com/), and [Francis Z. Fang](https://github.com/Franc1sFrank). 
