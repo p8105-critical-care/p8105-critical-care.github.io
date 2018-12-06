@@ -12,7 +12,7 @@ navbar:
     - text: Logistic Regression
       href: severity.html
     - text: Conclusion
-      href: about.html
+      href: conclusions.html
   - text: Resources
     menu:
     - text: MIMIC Code Repository
