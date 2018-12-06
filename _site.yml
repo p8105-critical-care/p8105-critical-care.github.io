@@ -13,7 +13,7 @@ navbar:
       href: severity.html
   - text: Resources
     menu:
-    - text: MIMIC Code Repository
+    - text: MIMIC Open Code Repository
       href: https://github.com/MIT-LCP/mimic-code
     - text: MIMIC Critical Care Database
       href: https://mimic.physionet.org/
