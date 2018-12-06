@@ -10,9 +10,7 @@ navbar:
     - text: Working with Postgres
       href: database.html
     - text: Logistic Regression
-      href: topic_building_blocks.html
-    - text: Conclusions
-      href: conclusions.html
+      href: severity.html
   - text: Resources
     menu:
     - text: MIMIC Code Repository
