@@ -11,6 +11,8 @@ navbar:
       href: database.html
     - text: Logistic Regression
       href: severity.html
+    - text: Conclusion
+      href: about.html
   - text: Resources
     menu:
     - text: MIMIC Code Repository
