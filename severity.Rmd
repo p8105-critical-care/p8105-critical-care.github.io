@@ -1,6 +1,5 @@
 ---
 title: "Logistic Regression"
-date: "12/5/2018"
 output: html_document
 ---
 
